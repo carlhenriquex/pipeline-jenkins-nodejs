@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        post {
+    post {
             success {
                 echo 'Pipeline executado com sucesso!'
             }
