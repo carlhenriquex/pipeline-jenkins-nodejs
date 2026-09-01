@@ -19,6 +19,7 @@ pipeline {
                 bat 'npm test'
             }
         }
+    }
 
     post {
             success {
@@ -29,7 +30,4 @@ pipeline {
                 echo 'Erro! verifique seu Pipeline'
             }
         }
-    }
-
-
 }
