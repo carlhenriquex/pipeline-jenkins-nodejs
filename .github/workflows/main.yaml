@@ -1,0 +1,36 @@
+name: Pipeline CI Node.js
+
+on:
+  push:
+    branches:
+      - professor
+
+  pull_request:
+    branches: [professor]
+
+  workflow_dispatch:
+
+jobs:
+  meu-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar build
+        run: npm run build
+
+      - name: Executar testes
+        run: npm test
+
+      - name: Pipeline concluído
+        run: echo "Aplicação validada com sucesso!"
