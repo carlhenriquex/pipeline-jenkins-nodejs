@@ -1,0 +1,36 @@
+name: Pipeline CI
+
+# roda toda vez que tem push ou pull request na branch main
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # baixa o código do repositório dentro do runner
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # instala o Node.js no runner, na versão definida abaixo
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm" # guarda cache das dependências, deixa mais rápido nas próximas execuções
+
+      # instala as dependências do projeto usando o package-lock.json
+      - name: Instalar dependências
+        run: npm ci
+
+      # roda o script de build definido no package.json
+      - name: Build
+        run: npm run build
+
+      # roda os testes com jest
+      - name: Testes
+        run: npm test
